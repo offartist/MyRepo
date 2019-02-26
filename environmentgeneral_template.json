@@ -1,0 +1,1777 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "connections_ExR_WEB_APP_SERVICES_WUS2_VNET_location": {
+            "defaultValue": null,
+            "type": "SecureString"
+        },
+        "location": {
+            "defaultValue": "West US 2",
+            "type": "String"
+        },
+        "hostingEnvironments_name": {
+            "defaultValue": "WestUS2-gADC",
+            "type": "String"
+        },
+        "serverfarms1_name": {
+            "defaultValue": "WestUS2-gADC-LoadTest",
+            "type": "String"
+        },
+        "serverfarms2_name": {
+            "defaultValue": "WestUS2-gADC-Production",
+            "type": "String"
+        },
+        "serverfarms3_name": {
+            "defaultValue": "WestUS2-gADC-Development",
+            "type": "String"
+        },
+        "serverfarms4_name": {
+            "defaultValue": "WestUS2-gADC-Feature-Branch",
+            "type": "String"
+        },
+        "routeTables_name": {
+            "defaultValue": "WestUS2-gADC-Route-Table",
+            "type": "String"
+        },
+        "serverfarms5_name": {
+            "defaultValue": "WestUS2-gADC-QualityAssurance",
+            "type": "String"
+        },
+        "networkSecurityGroups_name": {
+            "defaultValue": "WestUS2-gADC-NSG",
+            "type": "String"
+        },
+        "connections_name": {
+            "defaultValue": "ExR-WEB-APP-SERVICES-WUS2-VNET",
+            "type": "String"
+        },
+        "virtualNetworks_name": {
+            "defaultValue": "WEB-APP-SERVICES-WUS2-VNET",
+            "type": "String"
+        },
+        "multiRolePools_default_name": {
+            "defaultValue": "default",
+            "type": "String"
+        },
+        "publicIPAddresses_name": {
+            "defaultValue": "ExR-WEB-APP-SERVICES-WUS2-VNET-GW-PIP",
+            "type": "String"
+        },
+        "virtualNetworkGateways_name": {
+            "defaultValue": "ExR-WEB-APP-SERVICES-WUS2-VNET-GW",
+            "type": "String"
+        },
+        "routes_route_name": {
+            "defaultValue": "WestUS2-gADC-route",
+            "type": "String"
+        },
+        "securityRules_Inbound_FTP_name": {
+            "defaultValue": "Inbound-FTP",
+            "type": "String"
+        },
+        "securityRules_Outbound_DB_name": {
+            "defaultValue": "Outbound-DB",
+            "type": "String"
+        },
+        "securityRules_Outbound_80_name": {
+            "defaultValue": "Outbound-80",
+            "type": "String"
+        },
+        "securityRules_ASE_to_VNET_name": {
+            "defaultValue": "ASE-to-VNET",
+            "type": "String"
+        },
+        "subnets_GatewaySubnet_name": {
+            "defaultValue": "GatewaySubnet",
+            "type": "String"
+        },
+        "securityRules_Inbound_HTTP_name": {
+            "defaultValue": "Inbound-HTTP",
+            "type": "String"
+        },
+        "securityRules_Inbound_FTPS_name": {
+            "defaultValue": "Inbound-FTPS",
+            "type": "String"
+        },
+        "securityRules_Outbound_443_name": {
+            "defaultValue": "Outbound-443",
+            "type": "String"
+        },
+        "securityRules_Outbound_SMB_name": {
+            "defaultValue": "Outbound-SMB",
+            "type": "String"
+        },
+        "securityRules_Outbound_DB2_name": {
+            "defaultValue": "Outbound-DB2",
+            "type": "String"
+        },
+        "securityRules_Outbound_DB3_name": {
+            "defaultValue": "Outbound-DB3",
+            "type": "String"
+        },
+        "securityRules_Outbound_DNS_name": {
+            "defaultValue": "Outbound-DNS",
+            "type": "String"
+        },
+        "securityRules_Inbount_HTTPS_name": {
+            "defaultValue": "Inbount-HTTPS",
+            "type": "String"
+        },
+        "securityRules_Inbound_FTP_Data_name": {
+            "defaultValue": "Inbound-FTP-Data",
+            "type": "String"
+        },
+        "securityRules_Inbound_management_name": {
+            "defaultValue": "Inbound-management",
+            "type": "String"
+        },
+        "subnets_name": {
+            "defaultValue": "WEB-WUS2-APP-SERVICES",
+            "type": "String"
+        },
+        "securityRules_ASE_internal_inbound_name": {
+            "defaultValue": "ASE-internal-inbound",
+            "type": "String"
+        },
+        "securityRules_ASE_internal_outbound_name": {
+            "defaultValue": "ASE-internal-outbound",
+            "type": "String"
+        },
+        "securityRules_Inbound_Remote_Debugging_name": {
+            "defaultValue": "Inbound-Remote-Debugging",
+            "type": "String"
+        },
+        "virtualNetworkPeerings_WEB_APP_SERVICES_WUS2_VNET_TO_JE_VNET_name": {
+            "defaultValue": "WEB-APP-SERVICES-WUS2-VNET-TO-JE-VNET",
+            "type": "String"
+        },
+        "virtualNetworkPeerings_WEB_APP_SERVICES_WUS2_VNET_TO_WE_VNET_name": {
+            "defaultValue": "WEB-APP-SERVICES-WUS2-VNET-TO-WE-VNET",
+            "type": "String"
+        },
+        "virtualNetworkPeerings_WEB_APP_SERVICES_WUS2_VNET_TO_WI_VNET_name": {
+            "defaultValue": "WEB-APP-SERVICES-WUS2-VNET-TO-WI-VNET",
+            "type": "String"
+        },
+        "virtualNetworkPeerings_WEB_APP_SERVICES_WUS2_VNET_TO_EUS2_VNET_name": {
+            "defaultValue": "WEB-APP-SERVICES-WUS2-VNET-TO-EUS2-VNET",
+            "type": "String"
+        },
+        "connections_ExR_WEB_APP_SERVICES_WUS2_VNET_id": {
+            "defaultValue": "/subscriptions/0a689a02-af60-4e17-b62c-92e833420625/resourceGroups/AccuWx-ExpressRoute-EastUS/providers/Microsoft.Network/expressRouteCircuits/NetBondAccuST",
+            "type": "String"
+        },
+        "virtualNetworks_WEB_APP_SERVICES_WUS2_VNET_id": {
+            "defaultValue": "/subscriptions/8ff1a5d8-5665-4390-9c9d-166c880b2e5a/resourceGroups/WEB-APP-SERVICES-EASTUS2-RG/providers/Microsoft.Network/virtualNetworks/WEB-APP-SERVICES-EUS2-VNET",
+            "type": "String"
+        },
+        "virtualNetworks_WEB_APP_SERVICES_WUS2_VNET_id_1": {
+            "defaultValue": "/subscriptions/8ff1a5d8-5665-4390-9c9d-166c880b2e5a/resourceGroups/WEB-APP-SERVICES-JE-RG/providers/Microsoft.Network/virtualNetworks/WEB-APP-SERVICES-JE-VNET",
+            "type": "String"
+        },
+        "virtualNetworks_WEB_APP_SERVICES_WUS2_VNET_id_2": {
+            "defaultValue": "/subscriptions/8ff1a5d8-5665-4390-9c9d-166c880b2e5a/resourceGroups/WEB-APP-SERVICES-WE-RG/providers/Microsoft.Network/virtualNetworks/WEB-APP-SERVICES-WE-VNET",
+            "type": "String"
+        },
+        "virtualNetworks_WEB_APP_SERVICES_WUS2_VNET_id_3": {
+            "defaultValue": "/subscriptions/8ff1a5d8-5665-4390-9c9d-166c880b2e5a/resourceGroups/WEB-APP-SERVICES-WI-RG/providers/Microsoft.Network/virtualNetworks/WEB-APP-SERVICES-WI-VNET",
+            "type": "String"
+        },
+        "virtualNetworkPeerings_WEB_APP_SERVICES_WUS2_VNET_TO_EUS2_VNET_id": {
+            "defaultValue": "/subscriptions/8ff1a5d8-5665-4390-9c9d-166c880b2e5a/resourceGroups/WEB-APP-SERVICES-EASTUS2-RG/providers/Microsoft.Network/virtualNetworks/WEB-APP-SERVICES-EUS2-VNET",
+            "type": "String"
+        },
+        "virtualNetworkPeerings_WEB_APP_SERVICES_WUS2_VNET_TO_JE_VNET_id": {
+            "defaultValue": "/subscriptions/8ff1a5d8-5665-4390-9c9d-166c880b2e5a/resourceGroups/WEB-APP-SERVICES-JE-RG/providers/Microsoft.Network/virtualNetworks/WEB-APP-SERVICES-JE-VNET",
+            "type": "String"
+        },
+        "virtualNetworkPeerings_WEB_APP_SERVICES_WUS2_VNET_TO_WE_VNET_id": {
+            "defaultValue": "/subscriptions/8ff1a5d8-5665-4390-9c9d-166c880b2e5a/resourceGroups/WEB-APP-SERVICES-WE-RG/providers/Microsoft.Network/virtualNetworks/WEB-APP-SERVICES-WE-VNET",
+            "type": "String"
+        },
+        "virtualNetworkPeerings_WEB_APP_SERVICES_WUS2_VNET_TO_WI_VNET_id": {
+            "defaultValue": "/subscriptions/8ff1a5d8-5665-4390-9c9d-166c880b2e5a/resourceGroups/WEB-APP-SERVICES-WI-RG/providers/Microsoft.Network/virtualNetworks/WEB-APP-SERVICES-WI-VNET",
+            "type": "String"
+        }
+    },
+    "variables": {},
+    "resources": [
+        {
+            "comments": "Generalized from resource: '/subscriptions/8ff1a5d8-5665-4390-9c9d-166c880b2e5a/resourceGroups/WEB-APP-SERVICES-WESTUS2-RG/providers/Microsoft.Network/connections/ExR-WEB-APP-SERVICES-WUS2-VNET'.",
+            "type": "Microsoft.Network/connections",
+            "name": "[parameters('connections_name')]",
+            "apiVersion": "2018-10-01",
+            "location": "[parameters('location')]",
+            "scale": null,
+            "properties": {
+                "resourceGuid": "5e2eccae-3cf1-4dfd-a657-c6acb6e52111",
+                "virtualNetworkGateway1": {
+                    "location": "[parameters('connections_ExR_WEB_APP_SERVICES_WUS2_VNET_location')]",
+                    "properties": {}
+                },
+                "connectionType": "ExpressRoute",
+                "routingWeight": 0,
+                "enableBgp": false,
+                "usePolicyBasedTrafficSelectors": false,
+                "ipsecPolicies": [],
+                "authorizationKey": "3082022706092A864886F70D010703A082021830820214020100318201C0308201BC0201003081A330818B310B3009060355040613025553311330110603550408130A57617368696E67746F6E3110300E060355040713075265646D6F6E64311E301C060355040A13154D6963726F736F667420436F72706F726174696F6E31153013060355040B130C4D6963726F736F6674204954311E301C060355040313154D6963726F736F667420495420544C532043412032021320000111C7D9DC331071A0F3E00000000111C7300D06092A864886F70D010101050004820100797C7FE01682A76C7F2A69D281C74CF334D07F28434394311B191969A2E0AAED9C6E38EA0A1C04A30EA10D2FA6288FA30055F02DE69A0F2E6D125FE29AC1B1E8C30D44D27E96E414519582215BD5BCDE6B4C63D23BF0618AFB034EDC18A9D473378FCD3B5E6F0FBCC517975CB0198FCAC9DC7EBDE281993C7FFE8107F3412A29AC0A3E5FCCCD3B00593BBE4BA055F10F42012531991EAAB499AB5F31D2EF8AE443A0C13710FA00F4C5B9D6267392BEF90B4E1E146713C05D2052407FBEE92FD601CC143C822783B0AE54735A6ACA3640563D467789FC13EC8CBB7F88E7C94E41EF445EC0D82D6084F21321078703460EB252438D6DBD8D804D1071FD8A5DB760304B06092A864886F70D010701301406082A864886F70D030704080C69336248D8221A80288BCA197C0C6279297EBF67D59DB6722C04C33078245C7E3B7C721C531497396578298391ED8A8B67",
+                "peer": {
+                    "id": "[parameters('connections_ExR_WEB_APP_SERVICES_WUS2_VNET_id')]"
+                },
+                "expressRouteGatewayBypass": false
+            },
+            "dependsOn": []
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/8ff1a5d8-5665-4390-9c9d-166c880b2e5a/resourceGroups/WEB-APP-SERVICES-WESTUS2-RG/providers/Microsoft.Network/networkSecurityGroups/WestUS2-gADC-NSG'.",
+            "type": "Microsoft.Network/networkSecurityGroups",
+            "name": "[parameters('networkSecurityGroups_name')]",
+            "apiVersion": "2018-10-01",
+            "location": "[parameters('location')]",
+            "tags": {
+                "displayName": "NSG - Subnet"
+            },
+            "scale": null,
+            "properties": {
+                "provisioningState": "Succeeded",
+                "resourceGuid": "cdbb48dd-0d12-49d5-ac61-25a9605a53d2",
+                "securityRules": [
+                    {
+                        "name": "Inbound-management",
+                        "etag": "W/\"2e959c85-07bf-4b2d-ad6e-0ce98f817906\"",
+                        "properties": {
+                            "provisioningState": "Succeeded",
+                            "description": "Used to manage ASE from public VIP",
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "454-455",
+                            "sourceAddressPrefix": "AppServiceManagement",
+                            "destinationAddressPrefix": "*",
+                            "access": "Allow",
+                            "priority": 100,
+                            "direction": "Inbound",
+                            "sourcePortRanges": [],
+                            "destinationPortRanges": [],
+                            "sourceAddressPrefixes": [],
+                            "destinationAddressPrefixes": []
+                        }
+                    },
+                    {
+                        "name": "ASE-internal-inbound",
+                        "etag": "W/\"2e959c85-07bf-4b2d-ad6e-0ce98f817906\"",
+                        "properties": {
+                            "provisioningState": "Succeeded",
+                            "description": "ASE-internal-inbound",
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "*",
+                            "sourceAddressPrefix": "192.168.250.0/24",
+                            "destinationAddressPrefix": "*",
+                            "access": "Allow",
+                            "priority": 110,
+                            "direction": "Inbound",
+                            "sourcePortRanges": [],
+                            "destinationPortRanges": [],
+                            "sourceAddressPrefixes": [],
+                            "destinationAddressPrefixes": []
+                        }
+                    },
+                    {
+                        "name": "Inbound-HTTP",
+                        "etag": "W/\"2e959c85-07bf-4b2d-ad6e-0ce98f817906\"",
+                        "properties": {
+                            "provisioningState": "Succeeded",
+                            "description": "Allow HTTP",
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "80",
+                            "sourceAddressPrefix": "*",
+                            "destinationAddressPrefix": "*",
+                            "access": "Allow",
+                            "priority": 120,
+                            "direction": "Inbound",
+                            "sourcePortRanges": [],
+                            "destinationPortRanges": [],
+                            "sourceAddressPrefixes": [],
+                            "destinationAddressPrefixes": []
+                        }
+                    },
+                    {
+                        "name": "Inbount-HTTPS",
+                        "etag": "W/\"2e959c85-07bf-4b2d-ad6e-0ce98f817906\"",
+                        "properties": {
+                            "provisioningState": "Succeeded",
+                            "description": "Allow HTTPS",
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "443",
+                            "sourceAddressPrefix": "*",
+                            "destinationAddressPrefix": "*",
+                            "access": "Allow",
+                            "priority": 130,
+                            "direction": "Inbound",
+                            "sourcePortRanges": [],
+                            "destinationPortRanges": [],
+                            "sourceAddressPrefixes": [],
+                            "destinationAddressPrefixes": []
+                        }
+                    },
+                    {
+                        "name": "Inbound-FTP",
+                        "etag": "W/\"2e959c85-07bf-4b2d-ad6e-0ce98f817906\"",
+                        "properties": {
+                            "provisioningState": "Succeeded",
+                            "description": "Allow FTP over port 21",
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "21",
+                            "sourceAddressPrefix": "*",
+                            "destinationAddressPrefix": "*",
+                            "access": "Allow",
+                            "priority": 140,
+                            "direction": "Inbound",
+                            "sourcePortRanges": [],
+                            "destinationPortRanges": [],
+                            "sourceAddressPrefixes": [],
+                            "destinationAddressPrefixes": []
+                        }
+                    },
+                    {
+                        "name": "Inbound-FTPS",
+                        "etag": "W/\"2e959c85-07bf-4b2d-ad6e-0ce98f817906\"",
+                        "properties": {
+                            "provisioningState": "Succeeded",
+                            "description": "Allow FTPS",
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "990",
+                            "sourceAddressPrefix": "*",
+                            "destinationAddressPrefix": "*",
+                            "access": "Allow",
+                            "priority": 150,
+                            "direction": "Inbound",
+                            "sourcePortRanges": [],
+                            "destinationPortRanges": [],
+                            "sourceAddressPrefixes": [],
+                            "destinationAddressPrefixes": []
+                        }
+                    },
+                    {
+                        "name": "Inbound-FTP-Data",
+                        "etag": "W/\"2e959c85-07bf-4b2d-ad6e-0ce98f817906\"",
+                        "properties": {
+                            "provisioningState": "Succeeded",
+                            "description": "RDP",
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "10001-10020",
+                            "sourceAddressPrefix": "*",
+                            "destinationAddressPrefix": "*",
+                            "access": "Allow",
+                            "priority": 160,
+                            "direction": "Inbound",
+                            "sourcePortRanges": [],
+                            "destinationPortRanges": [],
+                            "sourceAddressPrefixes": [],
+                            "destinationAddressPrefixes": []
+                        }
+                    },
+                    {
+                        "name": "Inbound-Remote-Debugging",
+                        "etag": "W/\"2e959c85-07bf-4b2d-ad6e-0ce98f817906\"",
+                        "properties": {
+                            "provisioningState": "Succeeded",
+                            "description": "Visual Studio remote debugging",
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "4016-4022",
+                            "sourceAddressPrefix": "*",
+                            "destinationAddressPrefix": "*",
+                            "access": "Allow",
+                            "priority": 170,
+                            "direction": "Inbound",
+                            "sourcePortRanges": [],
+                            "destinationPortRanges": [],
+                            "sourceAddressPrefixes": [],
+                            "destinationAddressPrefixes": []
+                        }
+                    },
+                    {
+                        "name": "Outbound-443",
+                        "etag": "W/\"2e959c85-07bf-4b2d-ad6e-0ce98f817906\"",
+                        "properties": {
+                            "provisioningState": "Succeeded",
+                            "description": "Azure Storage blob",
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "443",
+                            "sourceAddressPrefix": "*",
+                            "destinationAddressPrefix": "*",
+                            "access": "Allow",
+                            "priority": 100,
+                            "direction": "Outbound",
+                            "sourcePortRanges": [],
+                            "destinationPortRanges": [],
+                            "sourceAddressPrefixes": [],
+                            "destinationAddressPrefixes": []
+                        }
+                    },
+                    {
+                        "name": "Outbound-SMB",
+                        "etag": "W/\"2e959c85-07bf-4b2d-ad6e-0ce98f817906\"",
+                        "properties": {
+                            "provisioningState": "Succeeded",
+                            "description": "Azure Storage queue",
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "445",
+                            "sourceAddressPrefix": "*",
+                            "destinationAddressPrefix": "*",
+                            "access": "Allow",
+                            "priority": 110,
+                            "direction": "Outbound",
+                            "sourcePortRanges": [],
+                            "destinationPortRanges": [],
+                            "sourceAddressPrefixes": [],
+                            "destinationAddressPrefixes": []
+                        }
+                    },
+                    {
+                        "name": "Outbound-DB",
+                        "etag": "W/\"2e959c85-07bf-4b2d-ad6e-0ce98f817906\"",
+                        "properties": {
+                            "provisioningState": "Succeeded",
+                            "description": "Database",
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "1433",
+                            "sourceAddressPrefix": "*",
+                            "destinationAddressPrefix": "*",
+                            "access": "Allow",
+                            "priority": 120,
+                            "direction": "Outbound",
+                            "sourcePortRanges": [],
+                            "destinationPortRanges": [],
+                            "sourceAddressPrefixes": [],
+                            "destinationAddressPrefixes": []
+                        }
+                    },
+                    {
+                        "name": "Outbound-DB2",
+                        "etag": "W/\"2e959c85-07bf-4b2d-ad6e-0ce98f817906\"",
+                        "properties": {
+                            "provisioningState": "Succeeded",
+                            "description": "Database 2",
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "11000-11999",
+                            "sourceAddressPrefix": "*",
+                            "destinationAddressPrefix": "*",
+                            "access": "Allow",
+                            "priority": 130,
+                            "direction": "Outbound",
+                            "sourcePortRanges": [],
+                            "destinationPortRanges": [],
+                            "sourceAddressPrefixes": [],
+                            "destinationAddressPrefixes": []
+                        }
+                    },
+                    {
+                        "name": "Outbound-DB3",
+                        "etag": "W/\"2e959c85-07bf-4b2d-ad6e-0ce98f817906\"",
+                        "properties": {
+                            "provisioningState": "Succeeded",
+                            "description": "Database 3",
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "14000-14999",
+                            "sourceAddressPrefix": "*",
+                            "destinationAddressPrefix": "*",
+                            "access": "Allow",
+                            "priority": 140,
+                            "direction": "Outbound",
+                            "sourcePortRanges": [],
+                            "destinationPortRanges": [],
+                            "sourceAddressPrefixes": [],
+                            "destinationAddressPrefixes": []
+                        }
+                    },
+                    {
+                        "name": "Outbound-DNS",
+                        "etag": "W/\"2e959c85-07bf-4b2d-ad6e-0ce98f817906\"",
+                        "properties": {
+                            "provisioningState": "Succeeded",
+                            "description": "DNS",
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "53",
+                            "sourceAddressPrefix": "*",
+                            "destinationAddressPrefix": "*",
+                            "access": "Allow",
+                            "priority": 150,
+                            "direction": "Outbound",
+                            "sourcePortRanges": [],
+                            "destinationPortRanges": [],
+                            "sourceAddressPrefixes": [],
+                            "destinationAddressPrefixes": []
+                        }
+                    },
+                    {
+                        "name": "ASE-internal-outbound",
+                        "etag": "W/\"2e959c85-07bf-4b2d-ad6e-0ce98f817906\"",
+                        "properties": {
+                            "provisioningState": "Succeeded",
+                            "description": "Azure Storage queue",
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "*",
+                            "sourceAddressPrefix": "*",
+                            "destinationAddressPrefix": "192.168.250.0/24",
+                            "access": "Allow",
+                            "priority": 160,
+                            "direction": "Outbound",
+                            "sourcePortRanges": [],
+                            "destinationPortRanges": [],
+                            "sourceAddressPrefixes": [],
+                            "destinationAddressPrefixes": []
+                        }
+                    },
+                    {
+                        "name": "Outbound-80",
+                        "etag": "W/\"2e959c85-07bf-4b2d-ad6e-0ce98f817906\"",
+                        "properties": {
+                            "provisioningState": "Succeeded",
+                            "description": "Outbound 80",
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "80",
+                            "sourceAddressPrefix": "*",
+                            "destinationAddressPrefix": "*",
+                            "access": "Allow",
+                            "priority": 170,
+                            "direction": "Outbound",
+                            "sourcePortRanges": [],
+                            "destinationPortRanges": [],
+                            "sourceAddressPrefixes": [],
+                            "destinationAddressPrefixes": []
+                        }
+                    },
+                    {
+                        "name": "ASE-to-VNET",
+                        "etag": "W/\"2e959c85-07bf-4b2d-ad6e-0ce98f817906\"",
+                        "properties": {
+                            "provisioningState": "Succeeded",
+                            "description": "ASE to VNET",
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "*",
+                            "sourceAddressPrefix": "*",
+                            "destinationAddressPrefix": "192.168.250.0/23",
+                            "access": "Allow",
+                            "priority": 180,
+                            "direction": "Outbound",
+                            "sourcePortRanges": [],
+                            "destinationPortRanges": [],
+                            "sourceAddressPrefixes": [],
+                            "destinationAddressPrefixes": []
+                        }
+                    }
+                ],
+                "defaultSecurityRules": [
+                    {
+                        "name": "AllowVnetInBound",
+                        "etag": "W/\"2e959c85-07bf-4b2d-ad6e-0ce98f817906\"",
+                        "properties": {
+                            "provisioningState": "Succeeded",
+                            "description": "Allow inbound traffic from all VMs in VNET",
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "*",
+                            "sourceAddressPrefix": "VirtualNetwork",
+                            "destinationAddressPrefix": "VirtualNetwork",
+                            "access": "Allow",
+                            "priority": 65000,
+                            "direction": "Inbound",
+                            "sourcePortRanges": [],
+                            "destinationPortRanges": [],
+                            "sourceAddressPrefixes": [],
+                            "destinationAddressPrefixes": []
+                        }
+                    },
+                    {
+                        "name": "AllowAzureLoadBalancerInBound",
+                        "etag": "W/\"2e959c85-07bf-4b2d-ad6e-0ce98f817906\"",
+                        "properties": {
+                            "provisioningState": "Succeeded",
+                            "description": "Allow inbound traffic from azure load balancer",
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "*",
+                            "sourceAddressPrefix": "AzureLoadBalancer",
+                            "destinationAddressPrefix": "*",
+                            "access": "Allow",
+                            "priority": 65001,
+                            "direction": "Inbound",
+                            "sourcePortRanges": [],
+                            "destinationPortRanges": [],
+                            "sourceAddressPrefixes": [],
+                            "destinationAddressPrefixes": []
+                        }
+                    },
+                    {
+                        "name": "DenyAllInBound",
+                        "etag": "W/\"2e959c85-07bf-4b2d-ad6e-0ce98f817906\"",
+                        "properties": {
+                            "provisioningState": "Succeeded",
+                            "description": "Deny all inbound traffic",
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "*",
+                            "sourceAddressPrefix": "*",
+                            "destinationAddressPrefix": "*",
+                            "access": "Deny",
+                            "priority": 65500,
+                            "direction": "Inbound",
+                            "sourcePortRanges": [],
+                            "destinationPortRanges": [],
+                            "sourceAddressPrefixes": [],
+                            "destinationAddressPrefixes": []
+                        }
+                    },
+                    {
+                        "name": "AllowVnetOutBound",
+                        "etag": "W/\"2e959c85-07bf-4b2d-ad6e-0ce98f817906\"",
+                        "properties": {
+                            "provisioningState": "Succeeded",
+                            "description": "Allow outbound traffic from all VMs to all VMs in VNET",
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "*",
+                            "sourceAddressPrefix": "VirtualNetwork",
+                            "destinationAddressPrefix": "VirtualNetwork",
+                            "access": "Allow",
+                            "priority": 65000,
+                            "direction": "Outbound",
+                            "sourcePortRanges": [],
+                            "destinationPortRanges": [],
+                            "sourceAddressPrefixes": [],
+                            "destinationAddressPrefixes": []
+                        }
+                    },
+                    {
+                        "name": "AllowInternetOutBound",
+                        "etag": "W/\"2e959c85-07bf-4b2d-ad6e-0ce98f817906\"",
+                        "properties": {
+                            "provisioningState": "Succeeded",
+                            "description": "Allow outbound traffic from all VMs to Internet",
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "*",
+                            "sourceAddressPrefix": "*",
+                            "destinationAddressPrefix": "Internet",
+                            "access": "Allow",
+                            "priority": 65001,
+                            "direction": "Outbound",
+                            "sourcePortRanges": [],
+                            "destinationPortRanges": [],
+                            "sourceAddressPrefixes": [],
+                            "destinationAddressPrefixes": []
+                        }
+                    },
+                    {
+                        "name": "DenyAllOutBound",
+                        "etag": "W/\"2e959c85-07bf-4b2d-ad6e-0ce98f817906\"",
+                        "properties": {
+                            "provisioningState": "Succeeded",
+                            "description": "Deny all outbound traffic",
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "*",
+                            "sourceAddressPrefix": "*",
+                            "destinationAddressPrefix": "*",
+                            "access": "Deny",
+                            "priority": 65500,
+                            "direction": "Outbound",
+                            "sourcePortRanges": [],
+                            "destinationPortRanges": [],
+                            "sourceAddressPrefixes": [],
+                            "destinationAddressPrefixes": []
+                        }
+                    }
+                ]
+            },
+            "dependsOn": []
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/8ff1a5d8-5665-4390-9c9d-166c880b2e5a/resourceGroups/WEB-APP-SERVICES-WESTUS2-RG/providers/Microsoft.Network/publicIPAddresses/ExR-WEB-APP-SERVICES-WUS2-VNET-GW-PIP'.",
+            "type": "Microsoft.Network/publicIPAddresses",
+            "sku": {
+                "name": "Basic",
+                "tier": "Regional"
+            },
+            "name": "[parameters('publicIPAddresses_name')]",
+            "apiVersion": "2018-10-01",
+            "location": "[parameters('location')]",
+            "scale": null,
+            "properties": {
+                "provisioningState": "Succeeded",
+                "resourceGuid": "7b22ee26-c673-407b-9120-3dd7eaacf4d5",
+                "ipAddress": "52.183.30.53",
+                "publicIPAddressVersion": "IPv4",
+                "publicIPAllocationMethod": "Dynamic",
+                "idleTimeoutInMinutes": 4,
+                "ipTags": []
+            },
+            "dependsOn": []
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/8ff1a5d8-5665-4390-9c9d-166c880b2e5a/resourceGroups/WEB-APP-SERVICES-WESTUS2-RG/providers/Microsoft.Network/routeTables/WestUS2-gADC-Route-Table'.",
+            "type": "Microsoft.Network/routeTables",
+            "name": "[parameters('routeTables_name')]",
+            "apiVersion": "2018-10-01",
+            "location": "[parameters('location')]",
+            "tags": {
+                "displayName": "UDR - Subnet"
+            },
+            "scale": null,
+            "properties": {
+                "provisioningState": "Succeeded",
+                "disableBgpRoutePropagation": false,
+                "routes": [
+                    {
+                        "name": "WestUS2-gADC-route",
+                        "etag": "W/\"ba20141a-f4b5-4ad7-ae65-a8b59230cb3c\"",
+                        "properties": {
+                            "provisioningState": "Succeeded",
+                            "addressPrefix": "0.0.0.0/0",
+                            "nextHopType": "Internet"
+                        }
+                    }
+                ]
+            },
+            "dependsOn": []
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/8ff1a5d8-5665-4390-9c9d-166c880b2e5a/resourceGroups/WEB-APP-SERVICES-WESTUS2-RG/providers/Microsoft.Network/virtualNetworkGateways/ExR-WEB-APP-SERVICES-WUS2-VNET-GW'.",
+            "type": "Microsoft.Network/virtualNetworkGateways",
+            "name": "[parameters('virtualNetworkGateways_name')]",
+            "apiVersion": "2018-10-01",
+            "location": "[parameters('location')]",
+            "scale": null,
+            "properties": {
+                "resourceGuid": "21592830-f4f9-4643-bb49-0fb9ca9a6935",
+                "ipConfigurations": [
+                    {
+                        "name": "default",
+                        "etag": "W/\"ffa0dd1b-38dc-4f6d-bd86-f5d41f82d4cf\"",
+                        "properties": {
+                            "privateIPAllocationMethod": "Dynamic",
+                            "publicIPAddress": {
+                                "id": "[resourceId('Microsoft.Network/publicIPAddresses', parameters('publicIPAddresses_name'))]"
+                            },
+                            "subnet": {
+                                "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('virtualNetworks_name'), parameters('subnets_GatewaySubnet_name'))]"
+                            }
+                        }
+                    }
+                ],
+                "sku": {
+                    "name": "UltraPerformance",
+                    "tier": "UltraPerformance",
+                    "capacity": 2
+                },
+                "gatewayType": "ExpressRoute",
+                "vpnType": "PolicyBased",
+                "enableBgp": false,
+                "activeActive": false,
+                "vpnClientConfiguration": {
+                    "vpnClientProtocols": [
+                        "SSTP",
+                        "IkeV2"
+                    ],
+                    "vpnClientRootCertificates": [],
+                    "vpnClientRevokedCertificates": [],
+                    "vpnClientIpsecPolicies": []
+                }
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/publicIPAddresses', parameters('publicIPAddresses_name'))]",
+                "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('virtualNetworks_name'), parameters('subnets_GatewaySubnet_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/8ff1a5d8-5665-4390-9c9d-166c880b2e5a/resourceGroups/WEB-APP-SERVICES-WESTUS2-RG/providers/Microsoft.Network/virtualNetworks/WEB-APP-SERVICES-WUS2-VNET'.",
+            "type": "Microsoft.Network/virtualNetworks",
+            "name": "[parameters('virtualNetworks_name')]",
+            "apiVersion": "2018-10-01",
+            "location": "westus2",
+            "scale": null,
+            "properties": {
+                "provisioningState": "Succeeded",
+                "resourceGuid": "effd2abe-df25-416d-8e86-407e1127650f",
+                "addressSpace": {
+                    "addressPrefixes": [
+                        "10.3.160.0/19"
+                    ]
+                },
+                "subnets": [
+                    {
+                        "name": "GatewaySubnet",
+                        "etag": "W/\"941d9752-d33a-4da4-a1c5-671d456a0869\"",
+                        "properties": {
+                            "provisioningState": "Succeeded",
+                            "addressPrefix": "10.3.188.0/22",
+                            "serviceEndpoints": [],
+                            "delegations": []
+                        }
+                    },
+                    {
+                        "name": "WEB-WUS2-APP-SERVICES",
+                        "etag": "W/\"941d9752-d33a-4da4-a1c5-671d456a0869\"",
+                        "properties": {
+                            "provisioningState": "Succeeded",
+                            "addressPrefix": "10.3.160.0/20",
+                            "networkSecurityGroup": {
+                                "id": "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroups_name'))]"
+                            },
+                            "routeTable": {
+                                "id": "[resourceId('Microsoft.Network/routeTables', parameters('routeTables_name'))]"
+                            },
+                            "resourceNavigationLinks": [
+                                {
+                                    "name": "MicrosoftWeb_HostingEnvironments_WestUS2-gADC",
+                                    "properties": {
+                                        "linkedResourceType": "Microsoft.Web/hostingEnvironments",
+                                        "link": "[resourceId('Microsoft.Web/hostingEnvironments', parameters('hostingEnvironments_name'))]"
+                                    }
+                                }
+                            ],
+                            "delegations": []
+                        }
+                    }
+                ],
+                "virtualNetworkPeerings": [
+                    {
+                        "name": "[concat(parameters('virtualNetworks_name'),'-TO-EUS2-VNET')]",
+                        "etag": "W/\"941d9752-d33a-4da4-a1c5-671d456a0869\"",
+                        "properties": {
+                            "provisioningState": "Succeeded",
+                            "peeringState": "Connected",
+                            "remoteVirtualNetwork": {
+                                "id": "[parameters('virtualNetworks_WEB_APP_SERVICES_WUS2_VNET_id')]"
+                            },
+                            "allowVirtualNetworkAccess": true,
+                            "allowForwardedTraffic": true,
+                            "allowGatewayTransit": false,
+                            "useRemoteGateways": false,
+                            "remoteAddressSpace": {
+                                "addressPrefixes": [
+                                    "10.2.96.0/19"
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "name": "[concat(parameters('virtualNetworks_name'),'-TO-JE-VNET')]",
+                        "etag": "W/\"941d9752-d33a-4da4-a1c5-671d456a0869\"",
+                        "properties": {
+                            "provisioningState": "Succeeded",
+                            "peeringState": "Connected",
+                            "remoteVirtualNetwork": {
+                                "id": "[parameters('virtualNetworks_WEB_APP_SERVICES_WUS2_VNET_id_1')]"
+                            },
+                            "allowVirtualNetworkAccess": true,
+                            "allowForwardedTraffic": true,
+                            "allowGatewayTransit": false,
+                            "useRemoteGateways": false,
+                            "remoteAddressSpace": {
+                                "addressPrefixes": [
+                                    "10.7.0.0/19"
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "name": "[concat(parameters('virtualNetworks_name'),'-TO-WE-VNET')]",
+                        "etag": "W/\"941d9752-d33a-4da4-a1c5-671d456a0869\"",
+                        "properties": {
+                            "provisioningState": "Succeeded",
+                            "peeringState": "Connected",
+                            "remoteVirtualNetwork": {
+                                "id": "[parameters('virtualNetworks_WEB_APP_SERVICES_WUS2_VNET_id_2')]"
+                            },
+                            "allowVirtualNetworkAccess": true,
+                            "allowForwardedTraffic": true,
+                            "allowGatewayTransit": false,
+                            "useRemoteGateways": false,
+                            "remoteAddressSpace": {
+                                "addressPrefixes": [
+                                    "10.5.0.0/19"
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "name": "[concat(parameters('virtualNetworks_name'),'-TO-WI-VNET')]",
+                        "etag": "W/\"941d9752-d33a-4da4-a1c5-671d456a0869\"",
+                        "properties": {
+                            "provisioningState": "Succeeded",
+                            "peeringState": "Connected",
+                            "remoteVirtualNetwork": {
+                                "id": "[parameters('virtualNetworks_WEB_APP_SERVICES_WUS2_VNET_id_3')]"
+                            },
+                            "allowVirtualNetworkAccess": true,
+                            "allowForwardedTraffic": true,
+                            "allowGatewayTransit": false,
+                            "useRemoteGateways": false,
+                            "remoteAddressSpace": {
+                                "addressPrefixes": [
+                                    "10.9.0.0/19"
+                                ]
+                            }
+                        }
+                    }
+                ],
+                "enableDdosProtection": false,
+                "enableVmProtection": false
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroups_name'))]",
+                "[resourceId('Microsoft.Network/routeTables', parameters('routeTables_name'))]",
+                "[resourceId('Microsoft.Web/hostingEnvironments', parameters('hostingEnvironments_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/8ff1a5d8-5665-4390-9c9d-166c880b2e5a/resourceGroups/WEB-APP-SERVICES-WESTUS2-RG/providers/Microsoft.Web/hostingEnvironments/WestUS2-gADC'.",
+            "type": "Microsoft.Web/hostingEnvironments",
+            "kind": "ASEV2",
+            "name": "[parameters('hostingEnvironments_name')]",
+            "apiVersion": "2016-09-01",
+            "location": "[parameters('location')]",
+            "zones": [
+                null
+            ],
+            "tags": {},
+            "scale": null,
+            "properties": {
+                "name": "[parameters('hostingEnvironments_name')]",
+                "location": "[parameters('location')]",
+                "vnetName": "WEB-APP-SERVICES-WUS2-VNET",
+                "vnetResourceGroupName": "WEB-APP-SERVICES-WESTUS2-RG",
+                "vnetSubnetName": "WEB-WUS2-APP-SERVICES",
+                "virtualNetwork": {
+                    "id": "[resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworks_name'))]",
+                    "subnet": "WEB-WUS2-APP-SERVICES"
+                },
+                "internalLoadBalancingMode": "None",
+                "multiSize": "Standard_D1_V2",
+                "multiRoleCount": 2,
+                "workerPools": null,
+                "ipsslAddressCount": 2,
+                "dnsSuffix": "[concat(parameters('hostingEnvironments_name'),'.p.azurewebsites.net')]",
+                "networkAccessControlList": [],
+                "frontEndScaleFactor": 15,
+                "apiManagementAccountId": null,
+                "suspended": false,
+                "dynamicCacheEnabled": null,
+                "clusterSettings": null
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworks_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/8ff1a5d8-5665-4390-9c9d-166c880b2e5a/resourceGroups/WEB-APP-SERVICES-WESTUS2-RG/providers/Microsoft.Web/serverfarms/WestUS2-gADC-Feature-Branch'.",
+            "type": "Microsoft.Web/serverfarms",
+            "sku": {
+                "name": "I1",
+                "tier": "Isolated",
+                "size": "I1",
+                "family": "I",
+                "capacity": 1
+            },
+            "kind": "linux",
+            "name": "[parameters('serverfarms4_name')]",
+            "apiVersion": "2016-09-01",
+            "location": "[parameters('location')]",
+            "scale": null,
+            "properties": {
+                "name": "[parameters('serverfarms4_name')]",
+                "workerTierName": null,
+                "adminSiteName": null,
+                "hostingEnvironmentProfile": {
+                    "id": "[resourceId('Microsoft.Web/hostingEnvironments', parameters('hostingEnvironments_name'))]"
+                },
+                "perSiteScaling": false,
+                "reserved": true,
+                "targetWorkerCount": 0,
+                "targetWorkerSizeId": 0
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Web/hostingEnvironments', parameters('hostingEnvironments_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/8ff1a5d8-5665-4390-9c9d-166c880b2e5a/resourceGroups/WEB-APP-SERVICES-WESTUS2-RG/providers/Microsoft.Web/serverfarms/WestUS2-gADC-Development'.",
+            "type": "Microsoft.Web/serverfarms",
+            "sku": {
+                "name": "I2",
+                "tier": "Isolated",
+                "size": "I2",
+                "family": "I",
+                "capacity": 1
+            },
+            "kind": "linux",
+            "name": "[parameters('serverfarms3_name')]",
+            "apiVersion": "2016-09-01",
+            "location": "[parameters('location')]",
+            "scale": null,
+            "properties": {
+                "name": "[parameters('serverfarms3_name')]",
+                "workerTierName": null,
+                "adminSiteName": null,
+                "hostingEnvironmentProfile": {
+                    "id": "[resourceId('Microsoft.Web/hostingEnvironments', parameters('hostingEnvironments_name'))]"
+                },
+                "perSiteScaling": false,
+                "reserved": true,
+                "targetWorkerCount": 0,
+                "targetWorkerSizeId": 0
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Web/hostingEnvironments', parameters('hostingEnvironments_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/8ff1a5d8-5665-4390-9c9d-166c880b2e5a/resourceGroups/WEB-APP-SERVICES-WESTUS2-RG/providers/Microsoft.Web/serverfarms/WestUS2-gADC-LoadTest'.",
+            "type": "Microsoft.Web/serverfarms",
+            "sku": {
+                "name": "I1",
+                "tier": "Isolated",
+                "size": "I1",
+                "family": "I",
+                "capacity": 1
+            },
+            "kind": "linux",
+            "name": "[parameters('serverfarms1_name')]",
+            "apiVersion": "2016-09-01",
+            "location": "[parameters('location')]",
+            "scale": null,
+            "properties": {
+                "name": "[parameters('serverfarms1_name')]",
+                "workerTierName": null,
+                "adminSiteName": null,
+                "hostingEnvironmentProfile": {
+                    "id": "[resourceId('Microsoft.Web/hostingEnvironments', parameters('hostingEnvironments_name'))]"
+                },
+                "perSiteScaling": false,
+                "reserved": true,
+                "targetWorkerCount": 0,
+                "targetWorkerSizeId": 0
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Web/hostingEnvironments', parameters('hostingEnvironments_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/8ff1a5d8-5665-4390-9c9d-166c880b2e5a/resourceGroups/WEB-APP-SERVICES-WESTUS2-RG/providers/Microsoft.Web/serverfarms/WestUS2-gADC-Production'.",
+            "type": "Microsoft.Web/serverfarms",
+            "sku": {
+                "name": "I1",
+                "tier": "Isolated",
+                "size": "I1",
+                "family": "I",
+                "capacity": 1
+            },
+            "kind": "linux",
+            "name": "[parameters('serverfarms2_name')]",
+            "apiVersion": "2016-09-01",
+            "location": "[parameters('location')]",
+            "scale": null,
+            "properties": {
+                "name": "[parameters('serverfarms2_name')]",
+                "workerTierName": null,
+                "adminSiteName": null,
+                "hostingEnvironmentProfile": {
+                    "id": "[resourceId('Microsoft.Web/hostingEnvironments', parameters('hostingEnvironments_name'))]"
+                },
+                "perSiteScaling": false,
+                "reserved": true,
+                "targetWorkerCount": 0,
+                "targetWorkerSizeId": 0
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Web/hostingEnvironments', parameters('hostingEnvironments_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/8ff1a5d8-5665-4390-9c9d-166c880b2e5a/resourceGroups/WEB-APP-SERVICES-WESTUS2-RG/providers/Microsoft.Web/serverfarms/WestUS2-gADC-QualityAssurance'.",
+            "type": "Microsoft.Web/serverfarms",
+            "sku": {
+                "name": "I1",
+                "tier": "Isolated",
+                "size": "I1",
+                "family": "I",
+                "capacity": 1
+            },
+            "kind": "linux",
+            "name": "[parameters('serverfarms5_name')]",
+            "apiVersion": "2016-09-01",
+            "location": "[parameters('location')]",
+            "scale": null,
+            "properties": {
+                "name": "[parameters('serverfarms5_name')]",
+                "workerTierName": null,
+                "adminSiteName": null,
+                "hostingEnvironmentProfile": {
+                    "id": "[resourceId('Microsoft.Web/hostingEnvironments', parameters('hostingEnvironments_name'))]"
+                },
+                "perSiteScaling": false,
+                "reserved": true,
+                "targetWorkerCount": 0,
+                "targetWorkerSizeId": 0
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Web/hostingEnvironments', parameters('hostingEnvironments_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/8ff1a5d8-5665-4390-9c9d-166c880b2e5a/resourceGroups/WEB-APP-SERVICES-WESTUS2-RG/providers/Microsoft.Network/networkSecurityGroups/WestUS2-gADC-NSG/securityRules/Inbound-management'.",
+            "type": "Microsoft.Network/networkSecurityGroups/securityRules",
+            "name": "[concat(parameters('networkSecurityGroups_name'), '/', parameters('securityRules_Inbound_management_name'))]",
+            "apiVersion": "2018-10-01",
+            "scale": null,
+            "properties": {
+                "provisioningState": "Succeeded",
+                "description": "Used to manage ASE from public VIP",
+                "protocol": "*",
+                "sourcePortRange": "*",
+                "destinationPortRange": "454-455",
+                "sourceAddressPrefix": "AppServiceManagement",
+                "destinationAddressPrefix": "*",
+                "access": "Allow",
+                "priority": 100,
+                "direction": "Inbound",
+                "sourcePortRanges": [],
+                "destinationPortRanges": [],
+                "sourceAddressPrefixes": [],
+                "destinationAddressPrefixes": []
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroups_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/8ff1a5d8-5665-4390-9c9d-166c880b2e5a/resourceGroups/WEB-APP-SERVICES-WESTUS2-RG/providers/Microsoft.Network/networkSecurityGroups/WestUS2-gADC-NSG/securityRules/ASE-internal-inbound'.",
+            "type": "Microsoft.Network/networkSecurityGroups/securityRules",
+            "name": "[concat(parameters('networkSecurityGroups_name'), '/', parameters('securityRules_ASE_internal_inbound_name'))]",
+            "apiVersion": "2018-10-01",
+            "scale": null,
+            "properties": {
+                "provisioningState": "Succeeded",
+                "description": "[parameters('securityRules_ASE_internal_inbound_name')]",
+                "protocol": "*",
+                "sourcePortRange": "*",
+                "destinationPortRange": "*",
+                "sourceAddressPrefix": "192.168.250.0/24",
+                "destinationAddressPrefix": "*",
+                "access": "Allow",
+                "priority": 110,
+                "direction": "Inbound",
+                "sourcePortRanges": [],
+                "destinationPortRanges": [],
+                "sourceAddressPrefixes": [],
+                "destinationAddressPrefixes": []
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroups_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/8ff1a5d8-5665-4390-9c9d-166c880b2e5a/resourceGroups/WEB-APP-SERVICES-WESTUS2-RG/providers/Microsoft.Network/networkSecurityGroups/WestUS2-gADC-NSG/securityRules/Inbound-HTTP'.",
+            "type": "Microsoft.Network/networkSecurityGroups/securityRules",
+            "name": "[concat(parameters('networkSecurityGroups_name'), '/', parameters('securityRules_Inbound_HTTP_name'))]",
+            "apiVersion": "2018-10-01",
+            "scale": null,
+            "properties": {
+                "provisioningState": "Succeeded",
+                "description": "Allow HTTP",
+                "protocol": "*",
+                "sourcePortRange": "*",
+                "destinationPortRange": "80",
+                "sourceAddressPrefix": "*",
+                "destinationAddressPrefix": "*",
+                "access": "Allow",
+                "priority": 120,
+                "direction": "Inbound",
+                "sourcePortRanges": [],
+                "destinationPortRanges": [],
+                "sourceAddressPrefixes": [],
+                "destinationAddressPrefixes": []
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroups_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/8ff1a5d8-5665-4390-9c9d-166c880b2e5a/resourceGroups/WEB-APP-SERVICES-WESTUS2-RG/providers/Microsoft.Network/networkSecurityGroups/WestUS2-gADC-NSG/securityRules/Inbount-HTTPS'.",
+            "type": "Microsoft.Network/networkSecurityGroups/securityRules",
+            "name": "[concat(parameters('networkSecurityGroups_name'), '/', parameters('securityRules_Inbount_HTTPS_name'))]",
+            "apiVersion": "2018-10-01",
+            "scale": null,
+            "properties": {
+                "provisioningState": "Succeeded",
+                "description": "Allow HTTPS",
+                "protocol": "*",
+                "sourcePortRange": "*",
+                "destinationPortRange": "443",
+                "sourceAddressPrefix": "*",
+                "destinationAddressPrefix": "*",
+                "access": "Allow",
+                "priority": 130,
+                "direction": "Inbound",
+                "sourcePortRanges": [],
+                "destinationPortRanges": [],
+                "sourceAddressPrefixes": [],
+                "destinationAddressPrefixes": []
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroups_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/8ff1a5d8-5665-4390-9c9d-166c880b2e5a/resourceGroups/WEB-APP-SERVICES-WESTUS2-RG/providers/Microsoft.Network/networkSecurityGroups/WestUS2-gADC-NSG/securityRules/Inbound-FTP'.",
+            "type": "Microsoft.Network/networkSecurityGroups/securityRules",
+            "name": "[concat(parameters('networkSecurityGroups_name'), '/', parameters('securityRules_Inbound_FTP_name'))]",
+            "apiVersion": "2018-10-01",
+            "scale": null,
+            "properties": {
+                "provisioningState": "Succeeded",
+                "description": "Allow FTP over port 21",
+                "protocol": "*",
+                "sourcePortRange": "*",
+                "destinationPortRange": "21",
+                "sourceAddressPrefix": "*",
+                "destinationAddressPrefix": "*",
+                "access": "Allow",
+                "priority": 140,
+                "direction": "Inbound",
+                "sourcePortRanges": [],
+                "destinationPortRanges": [],
+                "sourceAddressPrefixes": [],
+                "destinationAddressPrefixes": []
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroups_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/8ff1a5d8-5665-4390-9c9d-166c880b2e5a/resourceGroups/WEB-APP-SERVICES-WESTUS2-RG/providers/Microsoft.Network/networkSecurityGroups/WestUS2-gADC-NSG/securityRules/Inbound-FTPS'.",
+            "type": "Microsoft.Network/networkSecurityGroups/securityRules",
+            "name": "[concat(parameters('networkSecurityGroups_name'), '/', parameters('securityRules_Inbound_FTPS_name'))]",
+            "apiVersion": "2018-10-01",
+            "scale": null,
+            "properties": {
+                "provisioningState": "Succeeded",
+                "description": "Allow FTPS",
+                "protocol": "*",
+                "sourcePortRange": "*",
+                "destinationPortRange": "990",
+                "sourceAddressPrefix": "*",
+                "destinationAddressPrefix": "*",
+                "access": "Allow",
+                "priority": 150,
+                "direction": "Inbound",
+                "sourcePortRanges": [],
+                "destinationPortRanges": [],
+                "sourceAddressPrefixes": [],
+                "destinationAddressPrefixes": []
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroups_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/8ff1a5d8-5665-4390-9c9d-166c880b2e5a/resourceGroups/WEB-APP-SERVICES-WESTUS2-RG/providers/Microsoft.Network/networkSecurityGroups/WestUS2-gADC-NSG/securityRules/Inbound-FTP-Data'.",
+            "type": "Microsoft.Network/networkSecurityGroups/securityRules",
+            "name": "[concat(parameters('networkSecurityGroups_name'), '/', parameters('securityRules_Inbound_FTP_Data_name'))]",
+            "apiVersion": "2018-10-01",
+            "scale": null,
+            "properties": {
+                "provisioningState": "Succeeded",
+                "description": "RDP",
+                "protocol": "*",
+                "sourcePortRange": "*",
+                "destinationPortRange": "10001-10020",
+                "sourceAddressPrefix": "*",
+                "destinationAddressPrefix": "*",
+                "access": "Allow",
+                "priority": 160,
+                "direction": "Inbound",
+                "sourcePortRanges": [],
+                "destinationPortRanges": [],
+                "sourceAddressPrefixes": [],
+                "destinationAddressPrefixes": []
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroups_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/8ff1a5d8-5665-4390-9c9d-166c880b2e5a/resourceGroups/WEB-APP-SERVICES-WESTUS2-RG/providers/Microsoft.Network/networkSecurityGroups/WestUS2-gADC-NSG/securityRules/Inbound-Remote-Debugging'.",
+            "type": "Microsoft.Network/networkSecurityGroups/securityRules",
+            "name": "[concat(parameters('networkSecurityGroups_name'), '/', parameters('securityRules_Inbound_Remote_Debugging_name'))]",
+            "apiVersion": "2018-10-01",
+            "scale": null,
+            "properties": {
+                "provisioningState": "Succeeded",
+                "description": "Visual Studio remote debugging",
+                "protocol": "*",
+                "sourcePortRange": "*",
+                "destinationPortRange": "4016-4022",
+                "sourceAddressPrefix": "*",
+                "destinationAddressPrefix": "*",
+                "access": "Allow",
+                "priority": 170,
+                "direction": "Inbound",
+                "sourcePortRanges": [],
+                "destinationPortRanges": [],
+                "sourceAddressPrefixes": [],
+                "destinationAddressPrefixes": []
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroups_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/8ff1a5d8-5665-4390-9c9d-166c880b2e5a/resourceGroups/WEB-APP-SERVICES-WESTUS2-RG/providers/Microsoft.Network/networkSecurityGroups/WestUS2-gADC-NSG/securityRules/Outbound-443'.",
+            "type": "Microsoft.Network/networkSecurityGroups/securityRules",
+            "name": "[concat(parameters('networkSecurityGroups_name'), '/', parameters('securityRules_Outbound_443_name'))]",
+            "apiVersion": "2018-10-01",
+            "scale": null,
+            "properties": {
+                "provisioningState": "Succeeded",
+                "description": "Azure Storage blob",
+                "protocol": "*",
+                "sourcePortRange": "*",
+                "destinationPortRange": "443",
+                "sourceAddressPrefix": "*",
+                "destinationAddressPrefix": "*",
+                "access": "Allow",
+                "priority": 100,
+                "direction": "Outbound",
+                "sourcePortRanges": [],
+                "destinationPortRanges": [],
+                "sourceAddressPrefixes": [],
+                "destinationAddressPrefixes": []
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroups_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/8ff1a5d8-5665-4390-9c9d-166c880b2e5a/resourceGroups/WEB-APP-SERVICES-WESTUS2-RG/providers/Microsoft.Network/networkSecurityGroups/WestUS2-gADC-NSG/securityRules/Outbound-SMB'.",
+            "type": "Microsoft.Network/networkSecurityGroups/securityRules",
+            "name": "[concat(parameters('networkSecurityGroups_name'), '/', parameters('securityRules_Outbound_SMB_name'))]",
+            "apiVersion": "2018-10-01",
+            "scale": null,
+            "properties": {
+                "provisioningState": "Succeeded",
+                "description": "Azure Storage queue",
+                "protocol": "*",
+                "sourcePortRange": "*",
+                "destinationPortRange": "445",
+                "sourceAddressPrefix": "*",
+                "destinationAddressPrefix": "*",
+                "access": "Allow",
+                "priority": 110,
+                "direction": "Outbound",
+                "sourcePortRanges": [],
+                "destinationPortRanges": [],
+                "sourceAddressPrefixes": [],
+                "destinationAddressPrefixes": []
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroups_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/8ff1a5d8-5665-4390-9c9d-166c880b2e5a/resourceGroups/WEB-APP-SERVICES-WESTUS2-RG/providers/Microsoft.Network/networkSecurityGroups/WestUS2-gADC-NSG/securityRules/Outbound-DB'.",
+            "type": "Microsoft.Network/networkSecurityGroups/securityRules",
+            "name": "[concat(parameters('networkSecurityGroups_name'), '/', parameters('securityRules_Outbound_DB_name'))]",
+            "apiVersion": "2018-10-01",
+            "scale": null,
+            "properties": {
+                "provisioningState": "Succeeded",
+                "description": "Database",
+                "protocol": "*",
+                "sourcePortRange": "*",
+                "destinationPortRange": "1433",
+                "sourceAddressPrefix": "*",
+                "destinationAddressPrefix": "*",
+                "access": "Allow",
+                "priority": 120,
+                "direction": "Outbound",
+                "sourcePortRanges": [],
+                "destinationPortRanges": [],
+                "sourceAddressPrefixes": [],
+                "destinationAddressPrefixes": []
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroups_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/8ff1a5d8-5665-4390-9c9d-166c880b2e5a/resourceGroups/WEB-APP-SERVICES-WESTUS2-RG/providers/Microsoft.Network/networkSecurityGroups/WestUS2-gADC-NSG/securityRules/Outbound-DB2'.",
+            "type": "Microsoft.Network/networkSecurityGroups/securityRules",
+            "name": "[concat(parameters('networkSecurityGroups_name'), '/', parameters('securityRules_Outbound_DB2_name'))]",
+            "apiVersion": "2018-10-01",
+            "scale": null,
+            "properties": {
+                "provisioningState": "Succeeded",
+                "description": "Database 2",
+                "protocol": "*",
+                "sourcePortRange": "*",
+                "destinationPortRange": "11000-11999",
+                "sourceAddressPrefix": "*",
+                "destinationAddressPrefix": "*",
+                "access": "Allow",
+                "priority": 130,
+                "direction": "Outbound",
+                "sourcePortRanges": [],
+                "destinationPortRanges": [],
+                "sourceAddressPrefixes": [],
+                "destinationAddressPrefixes": []
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroups_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/8ff1a5d8-5665-4390-9c9d-166c880b2e5a/resourceGroups/WEB-APP-SERVICES-WESTUS2-RG/providers/Microsoft.Network/networkSecurityGroups/WestUS2-gADC-NSG/securityRules/Outbound-DB3'.",
+            "type": "Microsoft.Network/networkSecurityGroups/securityRules",
+            "name": "[concat(parameters('networkSecurityGroups_name'), '/', parameters('securityRules_Outbound_DB3_name'))]",
+            "apiVersion": "2018-10-01",
+            "scale": null,
+            "properties": {
+                "provisioningState": "Succeeded",
+                "description": "Database 3",
+                "protocol": "*",
+                "sourcePortRange": "*",
+                "destinationPortRange": "14000-14999",
+                "sourceAddressPrefix": "*",
+                "destinationAddressPrefix": "*",
+                "access": "Allow",
+                "priority": 140,
+                "direction": "Outbound",
+                "sourcePortRanges": [],
+                "destinationPortRanges": [],
+                "sourceAddressPrefixes": [],
+                "destinationAddressPrefixes": []
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroups_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/8ff1a5d8-5665-4390-9c9d-166c880b2e5a/resourceGroups/WEB-APP-SERVICES-WESTUS2-RG/providers/Microsoft.Network/networkSecurityGroups/WestUS2-gADC-NSG/securityRules/Outbound-DNS'.",
+            "type": "Microsoft.Network/networkSecurityGroups/securityRules",
+            "name": "[concat(parameters('networkSecurityGroups_name'), '/', parameters('securityRules_Outbound_DNS_name'))]",
+            "apiVersion": "2018-10-01",
+            "scale": null,
+            "properties": {
+                "provisioningState": "Succeeded",
+                "description": "DNS",
+                "protocol": "*",
+                "sourcePortRange": "*",
+                "destinationPortRange": "53",
+                "sourceAddressPrefix": "*",
+                "destinationAddressPrefix": "*",
+                "access": "Allow",
+                "priority": 150,
+                "direction": "Outbound",
+                "sourcePortRanges": [],
+                "destinationPortRanges": [],
+                "sourceAddressPrefixes": [],
+                "destinationAddressPrefixes": []
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroups_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/8ff1a5d8-5665-4390-9c9d-166c880b2e5a/resourceGroups/WEB-APP-SERVICES-WESTUS2-RG/providers/Microsoft.Network/networkSecurityGroups/WestUS2-gADC-NSG/securityRules/ASE-internal-outbound'.",
+            "type": "Microsoft.Network/networkSecurityGroups/securityRules",
+            "name": "[concat(parameters('networkSecurityGroups_name'), '/', parameters('securityRules_ASE_internal_outbound_name'))]",
+            "apiVersion": "2018-10-01",
+            "scale": null,
+            "properties": {
+                "provisioningState": "Succeeded",
+                "description": "Azure Storage queue",
+                "protocol": "*",
+                "sourcePortRange": "*",
+                "destinationPortRange": "*",
+                "sourceAddressPrefix": "*",
+                "destinationAddressPrefix": "192.168.250.0/24",
+                "access": "Allow",
+                "priority": 160,
+                "direction": "Outbound",
+                "sourcePortRanges": [],
+                "destinationPortRanges": [],
+                "sourceAddressPrefixes": [],
+                "destinationAddressPrefixes": []
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroups_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/8ff1a5d8-5665-4390-9c9d-166c880b2e5a/resourceGroups/WEB-APP-SERVICES-WESTUS2-RG/providers/Microsoft.Network/networkSecurityGroups/WestUS2-gADC-NSG/securityRules/Outbound-80'.",
+            "type": "Microsoft.Network/networkSecurityGroups/securityRules",
+            "name": "[concat(parameters('networkSecurityGroups_name'), '/', parameters('securityRules_Outbound_80_name'))]",
+            "apiVersion": "2018-10-01",
+            "scale": null,
+            "properties": {
+                "provisioningState": "Succeeded",
+                "description": "Outbound 80",
+                "protocol": "*",
+                "sourcePortRange": "*",
+                "destinationPortRange": "80",
+                "sourceAddressPrefix": "*",
+                "destinationAddressPrefix": "*",
+                "access": "Allow",
+                "priority": 170,
+                "direction": "Outbound",
+                "sourcePortRanges": [],
+                "destinationPortRanges": [],
+                "sourceAddressPrefixes": [],
+                "destinationAddressPrefixes": []
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroups_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/8ff1a5d8-5665-4390-9c9d-166c880b2e5a/resourceGroups/WEB-APP-SERVICES-WESTUS2-RG/providers/Microsoft.Network/networkSecurityGroups/WestUS2-gADC-NSG/securityRules/ASE-to-VNET'.",
+            "type": "Microsoft.Network/networkSecurityGroups/securityRules",
+            "name": "[concat(parameters('networkSecurityGroups_name'), '/', parameters('securityRules_ASE_to_VNET_name'))]",
+            "apiVersion": "2018-10-01",
+            "scale": null,
+            "properties": {
+                "provisioningState": "Succeeded",
+                "description": "ASE to VNET",
+                "protocol": "*",
+                "sourcePortRange": "*",
+                "destinationPortRange": "*",
+                "sourceAddressPrefix": "*",
+                "destinationAddressPrefix": "192.168.250.0/23",
+                "access": "Allow",
+                "priority": 180,
+                "direction": "Outbound",
+                "sourcePortRanges": [],
+                "destinationPortRanges": [],
+                "sourceAddressPrefixes": [],
+                "destinationAddressPrefixes": []
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroups_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/8ff1a5d8-5665-4390-9c9d-166c880b2e5a/resourceGroups/WEB-APP-SERVICES-WESTUS2-RG/providers/Microsoft.Network/routeTables/WestUS2-gADC-Route-Table/routes/WestUS2-gADC-route'.",
+            "type": "Microsoft.Network/routeTables/routes",
+            "name": "[concat(parameters('routeTables_name'), '/', parameters('routes_route_name'))]",
+            "apiVersion": "2018-10-01",
+            "scale": null,
+            "properties": {
+                "provisioningState": "Succeeded",
+                "addressPrefix": "0.0.0.0/0",
+                "nextHopType": "Internet"
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/routeTables', parameters('routeTables_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/8ff1a5d8-5665-4390-9c9d-166c880b2e5a/resourceGroups/WEB-APP-SERVICES-WESTUS2-RG/providers/Microsoft.Network/virtualNetworks/WEB-APP-SERVICES-WUS2-VNET/subnets/GatewaySubnet'.",
+            "type": "Microsoft.Network/virtualNetworks/subnets",
+            "name": "[concat(parameters('virtualNetworks_name'), '/', parameters('subnets_GatewaySubnet_name'))]",
+            "apiVersion": "2018-10-01",
+            "scale": null,
+            "properties": {
+                "provisioningState": "Succeeded",
+                "addressPrefix": "10.3.188.0/22",
+                "serviceEndpoints": [],
+                "delegations": []
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworks_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/8ff1a5d8-5665-4390-9c9d-166c880b2e5a/resourceGroups/WEB-APP-SERVICES-WESTUS2-RG/providers/Microsoft.Network/virtualNetworks/WEB-APP-SERVICES-WUS2-VNET/subnets/WEB-WUS2-APP-SERVICES'.",
+            "type": "Microsoft.Network/virtualNetworks/subnets",
+            "name": "[concat(parameters('virtualNetworks_name'), '/', parameters('subnets_name'))]",
+            "apiVersion": "2018-10-01",
+            "scale": null,
+            "properties": {
+                "provisioningState": "Succeeded",
+                "addressPrefix": "10.3.160.0/20",
+                "networkSecurityGroup": {
+                    "id": "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroups_name'))]"
+                },
+                "routeTable": {
+                    "id": "[resourceId('Microsoft.Network/routeTables', parameters('routeTables_name'))]"
+                },
+                "resourceNavigationLinks": [
+                    {
+                        "name": "MicrosoftWeb_HostingEnvironments_WestUS2-gADC",
+                        "properties": {
+                            "linkedResourceType": "Microsoft.Web/hostingEnvironments",
+                            "link": "[resourceId('Microsoft.Web/hostingEnvironments', parameters('hostingEnvironments_name'))]"
+                        }
+                    }
+                ],
+                "delegations": []
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworks_name'))]",
+                "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroups_name'))]",
+                "[resourceId('Microsoft.Network/routeTables', parameters('routeTables_name'))]",
+                "[resourceId('Microsoft.Web/hostingEnvironments', parameters('hostingEnvironments_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/8ff1a5d8-5665-4390-9c9d-166c880b2e5a/resourceGroups/WEB-APP-SERVICES-WESTUS2-RG/providers/Microsoft.Network/virtualNetworks/WEB-APP-SERVICES-WUS2-VNET/virtualNetworkPeerings/WEB-APP-SERVICES-WUS2-VNET-TO-EUS2-VNET'.",
+            "type": "Microsoft.Network/virtualNetworks/virtualNetworkPeerings",
+            "name": "[concat(parameters('virtualNetworks_name'), '/', parameters('virtualNetworkPeerings_WEB_APP_SERVICES_WUS2_VNET_TO_EUS2_VNET_name'))]",
+            "apiVersion": "2018-10-01",
+            "scale": null,
+            "properties": {
+                "provisioningState": "Succeeded",
+                "peeringState": "Connected",
+                "remoteVirtualNetwork": {
+                    "id": "[parameters('virtualNetworkPeerings_WEB_APP_SERVICES_WUS2_VNET_TO_EUS2_VNET_id')]"
+                },
+                "allowVirtualNetworkAccess": true,
+                "allowForwardedTraffic": true,
+                "allowGatewayTransit": false,
+                "useRemoteGateways": false,
+                "remoteAddressSpace": {
+                    "addressPrefixes": [
+                        "10.2.96.0/19"
+                    ]
+                }
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworks_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/8ff1a5d8-5665-4390-9c9d-166c880b2e5a/resourceGroups/WEB-APP-SERVICES-WESTUS2-RG/providers/Microsoft.Network/virtualNetworks/WEB-APP-SERVICES-WUS2-VNET/virtualNetworkPeerings/WEB-APP-SERVICES-WUS2-VNET-TO-JE-VNET'.",
+            "type": "Microsoft.Network/virtualNetworks/virtualNetworkPeerings",
+            "name": "[concat(parameters('virtualNetworks_name'), '/', parameters('virtualNetworkPeerings_WEB_APP_SERVICES_WUS2_VNET_TO_JE_VNET_name'))]",
+            "apiVersion": "2018-10-01",
+            "scale": null,
+            "properties": {
+                "provisioningState": "Succeeded",
+                "peeringState": "Connected",
+                "remoteVirtualNetwork": {
+                    "id": "[parameters('virtualNetworkPeerings_WEB_APP_SERVICES_WUS2_VNET_TO_JE_VNET_id')]"
+                },
+                "allowVirtualNetworkAccess": true,
+                "allowForwardedTraffic": true,
+                "allowGatewayTransit": false,
+                "useRemoteGateways": false,
+                "remoteAddressSpace": {
+                    "addressPrefixes": [
+                        "10.7.0.0/19"
+                    ]
+                }
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworks_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/8ff1a5d8-5665-4390-9c9d-166c880b2e5a/resourceGroups/WEB-APP-SERVICES-WESTUS2-RG/providers/Microsoft.Network/virtualNetworks/WEB-APP-SERVICES-WUS2-VNET/virtualNetworkPeerings/WEB-APP-SERVICES-WUS2-VNET-TO-WE-VNET'.",
+            "type": "Microsoft.Network/virtualNetworks/virtualNetworkPeerings",
+            "name": "[concat(parameters('virtualNetworks_name'), '/', parameters('virtualNetworkPeerings_WEB_APP_SERVICES_WUS2_VNET_TO_WE_VNET_name'))]",
+            "apiVersion": "2018-10-01",
+            "scale": null,
+            "properties": {
+                "provisioningState": "Succeeded",
+                "peeringState": "Connected",
+                "remoteVirtualNetwork": {
+                    "id": "[parameters('virtualNetworkPeerings_WEB_APP_SERVICES_WUS2_VNET_TO_WE_VNET_id')]"
+                },
+                "allowVirtualNetworkAccess": true,
+                "allowForwardedTraffic": true,
+                "allowGatewayTransit": false,
+                "useRemoteGateways": false,
+                "remoteAddressSpace": {
+                    "addressPrefixes": [
+                        "10.5.0.0/19"
+                    ]
+                }
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworks_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/8ff1a5d8-5665-4390-9c9d-166c880b2e5a/resourceGroups/WEB-APP-SERVICES-WESTUS2-RG/providers/Microsoft.Network/virtualNetworks/WEB-APP-SERVICES-WUS2-VNET/virtualNetworkPeerings/WEB-APP-SERVICES-WUS2-VNET-TO-WI-VNET'.",
+            "type": "Microsoft.Network/virtualNetworks/virtualNetworkPeerings",
+            "name": "[concat(parameters('virtualNetworks_name'), '/', parameters('virtualNetworkPeerings_WEB_APP_SERVICES_WUS2_VNET_TO_WI_VNET_name'))]",
+            "apiVersion": "2018-10-01",
+            "scale": null,
+            "properties": {
+                "provisioningState": "Succeeded",
+                "peeringState": "Connected",
+                "remoteVirtualNetwork": {
+                    "id": "[parameters('virtualNetworkPeerings_WEB_APP_SERVICES_WUS2_VNET_TO_WI_VNET_id')]"
+                },
+                "allowVirtualNetworkAccess": true,
+                "allowForwardedTraffic": true,
+                "allowGatewayTransit": false,
+                "useRemoteGateways": false,
+                "remoteAddressSpace": {
+                    "addressPrefixes": [
+                        "10.9.0.0/19"
+                    ]
+                }
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworks_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/8ff1a5d8-5665-4390-9c9d-166c880b2e5a/resourceGroups/WEB-APP-SERVICES-WESTUS2-RG/providers/Microsoft.Web/hostingEnvironments/WestUS2-gADC/multiRolePools/default'.",
+            "type": "Microsoft.Web/hostingEnvironments/multiRolePools",
+            "sku": {
+                "name": "Q1",
+                "tier": "Quantum",
+                "size": "Q1",
+                "family": "Q",
+                "capacity": 2
+            },
+            "name": "[concat(parameters('hostingEnvironments_name'), '/', parameters('multiRolePools_default_name'))]",
+            "apiVersion": "2016-09-01",
+            "location": "West US 2",
+            "scale": null,
+            "properties": {
+                "workerSize": "Standard_D1_V2",
+                "workerCount": 2,
+                "instanceNames": [
+                    "10.3.160.8",
+                    "10.3.160.9"
+                ],
+                "mdmId": "waws-prod-mwh-8c233719_MultiRole"
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Web/hostingEnvironments', parameters('hostingEnvironments_name'))]"
+            ]
+        }
+    ]
+}
